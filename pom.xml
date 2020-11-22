@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.xinput123</groupId>
+    <artifactId>cloud</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>cloud-api</module>
+        <module>unicloud</module>
+        <module>unicloud-demo</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <compiler.version>1.8</compiler.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cloud.version>${project.version}</cloud.version>
+        <log.version>1.7.25</log.version>
+        <log4j.version>2.11.0</log4j.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.xinput123</groupId>
+                <artifactId>cloud-api</artifactId>
+                <version>${cloud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xinput123</groupId>
+                <artifactId>unicloud</artifactId>
+                <version>${cloud.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
