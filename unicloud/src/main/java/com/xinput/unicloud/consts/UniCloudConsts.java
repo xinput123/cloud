@@ -30,11 +30,11 @@ public class UniCloudConsts {
         DESCRIBE_KEY_PAIR("DescribeKeyPairs", "https://api.unicloud.com/compute", "GET", "获取密钥对列表"),
         GET_VM_BY_KEY_PAIR("GetVMByKeyPair", "https://api.unicloud.com/compute", "GET", "获取应用密钥对的云主机"),
         // VPC
-        CREATE_VPC("CreateVpc", "https://api.unicloud.com/networks", "POST", "创建一个专有网络(VPC)"),
-        DESCRIBE_VPC("DescribeVpc", "https://api.unicloud.com/networks", "GET", "查询已创建的VPC列表"),
-        UPDATE_VPC("UpdateVpc", "https://api.unicloud.com/networks", "PUT", "修改指定VPC实例的名称"),
-        DELETE_VPC("DeleteVpc", "https://api.unicloud.com/networks", "DELETE", "释放一个指定的专有网络(VPC)"),
-        CREATE_SUBNET("CreateSubnet", "https://api.unicloud.com/networks", "POST", "创建子网"),
+        CREATE_VPC("CreateVpc", "https://api.unicloud.com/network", "POST", "创建一个专有网络(VPC)"),
+        DESCRIBE_VPC("DescribeVpc", "https://api.unicloud.com/network", "GET", "查询已创建的VPC列表"),
+        UPDATE_VPC("UpdateVpc", "https://api.unicloud.com/network", "PUT", "修改指定VPC实例的名称"),
+        DELETE_VPC("DeleteVpc", "https://api.unicloud.com/network", "DELETE", "释放一个指定的专有网络(VPC)"),
+        CREATE_SUBNET("CreateSubnet", "https://api.unicloud.com/vpc", "POST", "创建子网"),
         DESCRIBE_SUBNET("DescribeSubnet", "https://api.unicloud.com/networks", "GET", "查询子网列表"),
         DELETE_SUBNET("DeleteSubnet", "https://api.unicloud.com/networks", "DELETE", "释放指定VPC下的指定子网"),
         ;

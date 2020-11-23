@@ -97,7 +97,7 @@ public class UniCloudDemo {
     public void stopEcs() throws Exception {
         StopEcsReq stopEcsReq = new StopEcsReq();
         stopEcsReq.setRegion(CloudConsts.Region.UNICLOUD_HB1_BJ3);
-        stopEcsReq.setInstanceId("ecs-kdy4iy46l6j7");
+        stopEcsReq.setInstanceId("ecs-kd24pr6qdpko");
         // 紫光云主机ID不存在时，也会返回成功
 //        stopEcsReq.setInstanceId("ecs-kdy4iy46l6j8");
 

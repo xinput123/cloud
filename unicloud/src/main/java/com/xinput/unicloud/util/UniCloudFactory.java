@@ -25,7 +25,9 @@ import com.xinput.unicloud.model.reqeust.keypair.UniCloudDeleteKeyPairReq;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudDescribeKeyPairReq;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudGetVmByKeyPairReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudCreateVpcReq;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteVpcReq;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeVpcReq;
 import com.xinput.unicloud.model.response.ecs.UniCloudDeleteEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDesctibeEcsResp;
@@ -43,7 +45,9 @@ import com.xinput.unicloud.model.response.keypair.UniCloudDeleteKeyPairResp;
 import com.xinput.unicloud.model.response.keypair.UniCloudDescribeKeyPairResp;
 import com.xinput.unicloud.model.response.keypair.UniCloudGetVmByKeyPairResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudCreateVpcResp;
+import com.xinput.unicloud.model.response.vpc.UniCloudDeleteSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDeleteVpcResp;
+import com.xinput.unicloud.model.response.vpc.UniCloudDescribeSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDescribeVpcResp;
 
 import java.net.URLEncoder;
@@ -206,6 +210,20 @@ public class UniCloudFactory {
          */
         public static UniCloudDeleteVpcResp delete(UniCloudDeleteVpcReq deleteVpcReq) throws Exception {
             return JsonUtils.toBean(sendRequest(deleteVpcReq), UniCloudDeleteVpcResp.class);
+        }
+
+        /**
+         * VPC子网列表
+         */
+        public static UniCloudDescribeSubnetResp describeSubnet(UniCloudDescribeSubnetReq describeSubnetReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(describeSubnetReq), UniCloudDescribeSubnetResp.class);
+        }
+
+        /**
+         * 释放指定VPC下的指定子网
+         */
+        public static UniCloudDeleteSubnetResp deleteSubnet(UniCloudDeleteSubnetReq deleteSubnetReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(deleteSubnetReq), UniCloudDeleteSubnetResp.class);
         }
     }
 

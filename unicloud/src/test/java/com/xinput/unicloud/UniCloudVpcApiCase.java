@@ -4,10 +4,14 @@ import com.xinput.cloud.consts.CloudConsts;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.cloud.util.JsonUtils;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudCreateVpcReq;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteVpcReq;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeVpcReq;
 import com.xinput.unicloud.model.response.vpc.UniCloudCreateVpcResp;
+import com.xinput.unicloud.model.response.vpc.UniCloudDeleteSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDeleteVpcResp;
+import com.xinput.unicloud.model.response.vpc.UniCloudDescribeSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDescribeVpcResp;
 import com.xinput.unicloud.util.UniCloudFactory;
 import org.junit.Before;
@@ -70,6 +74,35 @@ public class UniCloudVpcApiCase {
 
         UniCloudDeleteVpcResp resp = UniCloudFactory.Vpc.delete(req);
         System.out.println("---删除vpn网络---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
+     * 子网列表
+     */
+    @Test
+    public void describeSubnet() throws Exception {
+        UniCloudDescribeSubnetReq req = new UniCloudDescribeSubnetReq();
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setVpcId("vpc-k28fflzyusgpb");
+
+        UniCloudDescribeSubnetResp resp = UniCloudFactory.Vpc.describeSubnet(req);
+        System.out.println("---子网列表---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
+     * 删除指定子网
+     */
+    @Test
+    public void deleteSubnet() throws Exception {
+        UniCloudDeleteSubnetReq req = new UniCloudDeleteSubnetReq();
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setVpcId("vpc-k28fflzyusgpb");
+        req.setSubnetId("08976cc7f8384bdda17a46b58014433f");
+
+        UniCloudDeleteSubnetResp resp = UniCloudFactory.Vpc.deleteSubnet(req);
+        System.out.println("---删除指定子网---\n\n\n");
         System.out.println(JsonUtils.toJsonString(resp, true));
     }
 }
