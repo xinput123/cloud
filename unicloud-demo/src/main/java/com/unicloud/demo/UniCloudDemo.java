@@ -28,8 +28,8 @@ public class UniCloudDemo {
     @Before
     public void init() throws ParamException {
         CloudConfig config = new CloudConfig();
-        config.setAccessKey("XXX");
-        config.setSecretKey("XXX");
+        config.setAccessKey("xxx");
+        config.setSecretKey("xxx");
         Cloud.initCloud(config);
     }
 
