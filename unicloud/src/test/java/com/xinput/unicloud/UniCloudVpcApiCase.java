@@ -3,16 +3,20 @@ package com.xinput.unicloud;
 import com.xinput.cloud.consts.CloudConsts;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.cloud.util.JsonUtils;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudCreateSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudCreateVpcReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteVpcReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeVpcReq;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudUpdateVpcReq;
+import com.xinput.unicloud.model.response.vpc.UniCloudCreateSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudCreateVpcResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDeleteSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDeleteVpcResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDescribeSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDescribeVpcResp;
+import com.xinput.unicloud.model.response.vpc.UniCloudUpdateVpcResp;
 import com.xinput.unicloud.util.UniCloudFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +68,21 @@ public class UniCloudVpcApiCase {
     }
 
     /**
+     * 修改vpn网络名称
+     */
+    @Test
+    public void update() throws Exception {
+        UniCloudUpdateVpcReq req = new UniCloudUpdateVpcReq();
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setVpcId("vpc-8ff646221sgpb");
+        req.setName("xinput-test");
+
+        UniCloudUpdateVpcResp resp = UniCloudFactory.Vpc.updateVpc(req);
+        System.out.println("---修改vpn网络名称---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
      * 删除vpn网络
      */
     @Test
@@ -78,13 +97,29 @@ public class UniCloudVpcApiCase {
     }
 
     /**
+     * 创建子网
+     */
+    @Test
+    public void createSubnet() throws Exception {
+        UniCloudCreateSubnetReq req = new UniCloudCreateSubnetReq();
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setVpcId("vpc-8ff646221sgpb");
+        req.setName("xinput-2");
+        req.setCidr("192.172.4.0/24");
+
+        UniCloudCreateSubnetResp resp = UniCloudFactory.Vpc.createSubnet(req);
+        System.out.println("---子网列表---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
      * 子网列表
      */
     @Test
     public void describeSubnet() throws Exception {
         UniCloudDescribeSubnetReq req = new UniCloudDescribeSubnetReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setVpcId("vpc-k28fflzyusgpb");
+        req.setVpcId("vpc-8ff646221sgpb");
 
         UniCloudDescribeSubnetResp resp = UniCloudFactory.Vpc.describeSubnet(req);
         System.out.println("---子网列表---\n\n\n");

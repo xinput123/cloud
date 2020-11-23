@@ -2,7 +2,7 @@ package com.xinput.unicloud.model.reqeust.vpc;
 
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
-import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.model.reqeust.UniSubnetRequest;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -12,15 +12,7 @@ import javax.validation.constraints.NotEmpty;
  * @author <a href="mailto:xinput.xx@gmail.com">xinput</a>
  * @date 2020-11-20 23:31
  */
-public class UniCloudCreateSubnetReq extends UniRequest {
-
-    /**
-     * 类型：string
-     * 必选：是
-     * 描述：VPC的实例ID
-     */
-    @NotEmpty(message = "字段 [vpcId] 不能为空")
-    private String vpcId;
+public class UniCloudCreateSubnetReq extends UniSubnetRequest {
 
     /**
      * 类型：string
@@ -44,14 +36,6 @@ public class UniCloudCreateSubnetReq extends UniRequest {
      * 描述：网关
      */
     private String gatewayIp;
-
-    public String getVpcId() {
-        return vpcId;
-    }
-
-    public void setVpcId(String vpcId) {
-        this.vpcId = vpcId;
-    }
 
     public String getName() {
         return name;

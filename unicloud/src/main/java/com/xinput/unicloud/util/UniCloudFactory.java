@@ -9,6 +9,7 @@ import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.Context;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.model.reqeust.UniSubnetRequest;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDeleteEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDescribeEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDetailEcsReq;
@@ -24,11 +25,13 @@ import com.xinput.unicloud.model.reqeust.keypair.UniCloudCreateKeyPairReq;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudDeleteKeyPairReq;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudDescribeKeyPairReq;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudGetVmByKeyPairReq;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudCreateSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudCreateVpcReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteVpcReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeSubnetReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeVpcReq;
+import com.xinput.unicloud.model.reqeust.vpc.UniCloudUpdateVpcReq;
 import com.xinput.unicloud.model.response.ecs.UniCloudDeleteEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDesctibeEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDetailEcsResp;
@@ -44,11 +47,13 @@ import com.xinput.unicloud.model.response.keypair.UniCloudCreateKeyPairResp;
 import com.xinput.unicloud.model.response.keypair.UniCloudDeleteKeyPairResp;
 import com.xinput.unicloud.model.response.keypair.UniCloudDescribeKeyPairResp;
 import com.xinput.unicloud.model.response.keypair.UniCloudGetVmByKeyPairResp;
+import com.xinput.unicloud.model.response.vpc.UniCloudCreateSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudCreateVpcResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDeleteSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDeleteVpcResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDescribeSubnetResp;
 import com.xinput.unicloud.model.response.vpc.UniCloudDescribeVpcResp;
+import com.xinput.unicloud.model.response.vpc.UniCloudUpdateVpcResp;
 
 import java.net.URLEncoder;
 import java.util.Date;
@@ -195,35 +200,49 @@ public class UniCloudFactory {
          * 创建VPC网络
          */
         public static UniCloudCreateVpcResp create(UniCloudCreateVpcReq createVpcReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(createVpcReq), UniCloudCreateVpcResp.class);
+            return JsonUtils.toBean(sendVpcRequest(createVpcReq), UniCloudCreateVpcResp.class);
         }
 
         /**
          * 获取VPC网络列表
          */
         public static UniCloudDescribeVpcResp describe(UniCloudDescribeVpcReq describeVpcReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(describeVpcReq), UniCloudDescribeVpcResp.class);
+            return JsonUtils.toBean(sendVpcRequest(describeVpcReq), UniCloudDescribeVpcResp.class);
+        }
+
+        /**
+         * 修改指定VPC实例的名称
+         */
+        public static UniCloudUpdateVpcResp updateVpc(UniCloudUpdateVpcReq updateVpcReq) throws Exception {
+            return JsonUtils.toBean(sendVpcRequest(updateVpcReq), UniCloudUpdateVpcResp.class);
         }
 
         /**
          * 删除VPC网络
          */
         public static UniCloudDeleteVpcResp delete(UniCloudDeleteVpcReq deleteVpcReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(deleteVpcReq), UniCloudDeleteVpcResp.class);
+            return JsonUtils.toBean(sendVpcRequest(deleteVpcReq), UniCloudDeleteVpcResp.class);
+        }
+
+        /**
+         * 创建VPC子网
+         */
+        public static UniCloudCreateSubnetResp createSubnet(UniCloudCreateSubnetReq createSubnetReq) throws Exception {
+            return JsonUtils.toBean(sendVpcSubnetRequest(createSubnetReq), UniCloudCreateSubnetResp.class);
         }
 
         /**
          * VPC子网列表
          */
         public static UniCloudDescribeSubnetResp describeSubnet(UniCloudDescribeSubnetReq describeSubnetReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(describeSubnetReq), UniCloudDescribeSubnetResp.class);
+            return JsonUtils.toBean(sendVpcSubnetRequest(describeSubnetReq), UniCloudDescribeSubnetResp.class);
         }
 
         /**
          * 释放指定VPC下的指定子网
          */
         public static UniCloudDeleteSubnetResp deleteSubnet(UniCloudDeleteSubnetReq deleteSubnetReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(deleteSubnetReq), UniCloudDeleteSubnetResp.class);
+            return JsonUtils.toBean(sendVpcRequest(deleteSubnetReq), UniCloudDeleteSubnetResp.class);
         }
     }
 
@@ -248,6 +267,60 @@ public class UniCloudFactory {
         return null;
     }
 
+    /**
+     * sendVpcRequest 和 sendRequest 区别
+     * sendVpcRequest 添加了 RegionId 在 queryParam 中
+     */
+    private static String sendVpcRequest(UniRequest uniRequest) throws Exception {
+        // 字段验证
+        uniRequest.checkConstraints();
+
+        UniCloudConsts.Action action = UniCloudConsts.Action.getAction(uniRequest.getAction());
+        String urlString = getVpcUrl(uniRequest, action);
+        if (StringUtils.equalsIgnoreCase("GET", action.getMethod())) {
+            return HttpUtils.get(urlString);
+        }
+
+        if (StringUtils.equalsIgnoreCase("POST", action.getMethod())) {
+            return HttpUtils.post(urlString, uniRequest);
+        }
+
+        if (StringUtils.equalsIgnoreCase("DELETE", action.getMethod())) {
+            return HttpUtils.delete(urlString);
+        }
+
+        if (StringUtils.equalsIgnoreCase("PUT", action.getMethod())) {
+            return HttpUtils.put(urlString);
+        }
+
+        return null;
+    }
+
+    private static String sendVpcSubnetRequest(UniSubnetRequest uniSubnetRequest) throws Exception {
+        // 字段验证
+        uniSubnetRequest.checkConstraints();
+
+        UniCloudConsts.Action action = UniCloudConsts.Action.getAction(uniSubnetRequest.getAction());
+        String urlString = getVpcSubnetUrl(uniSubnetRequest, action);
+        if (StringUtils.equalsIgnoreCase("GET", action.getMethod())) {
+            return HttpUtils.get(urlString);
+        }
+
+        if (StringUtils.equalsIgnoreCase("POST", action.getMethod())) {
+            return HttpUtils.post(urlString, uniSubnetRequest);
+        }
+
+        if (StringUtils.equalsIgnoreCase("DELETE", action.getMethod())) {
+            return HttpUtils.delete(urlString);
+        }
+
+        if (StringUtils.equalsIgnoreCase("PUT", action.getMethod())) {
+            return HttpUtils.put(urlString);
+        }
+
+        return null;
+    }
+
     private static String getUrl(UniRequest uniRequest, UniCloudConsts.Action action) throws Exception {
         Map<String, Object> parameters;
         if (StringUtils.equalsIgnoreCase("GET", action.getMethod())) {
@@ -263,6 +336,85 @@ public class UniCloudFactory {
         // 添加公共参数
         addCommonParams(parameters);
         parameters.put("Action", action.getAction());
+
+        // 将原始uri 中的key value 进行 encode
+        List<String> params = SignatureUtils.paramsToQuery(parameters);
+
+        // 排序参数
+        List<String> pList = params.stream().map(SignatureUtils::encode).sorted().collect(Collectors.toList());
+
+        // 将转译后的请求参数用&拼接   & encode 之后 是 %26
+        String canonicalizedQueryString = Joiner.on("%26").join(pList);
+
+        // 生成 stringToSign
+        String stringToSign = Joiner.on("&").join(action.getMethod(), URLEncoder.encode("/", "utf-8"), canonicalizedQueryString);
+
+        // 生成 hmac
+        String hmac = SignatureUtils.hmacSHA1Encrypt(stringToSign, context.getSecretKey() + "&");
+
+        // 最终发出的url  需要对value 进行转译
+        String url = Joiner.on("&").join(params) + "&Signature=" + SignatureUtils.encode(hmac);
+        return Joiner.on("?").join(action.getUrl(), url);
+    }
+
+    private static String getVpcUrl(UniRequest uniRequest, UniCloudConsts.Action action) throws Exception {
+        Map<String, Object> parameters;
+        if (StringUtils.equalsIgnoreCase("GET", action.getMethod())) {
+            parameters = uniRequest.toMap();
+        } else if (StringUtils.equalsIgnoreCase("POST", action.getMethod())) {
+            parameters = Maps.newHashMap();
+        } else if (StringUtils.equalsIgnoreCase("PUT", action.getMethod())) {
+            parameters = uniRequest.toMap();
+        } else if (StringUtils.equalsIgnoreCase("DELETE", action.getMethod())) {
+            parameters = uniRequest.toMap();
+        } else {
+            return StringUtils.EMPTY;
+        }
+
+        // 添加公共参数
+        addCommonParams(parameters);
+        parameters.put("Action", action.getAction());
+        parameters.put("RegionId", uniRequest.getRegionId());
+
+        // 将原始uri 中的key value 进行 encode
+        List<String> params = SignatureUtils.paramsToQuery(parameters);
+
+        // 排序参数
+        List<String> pList = params.stream().map(SignatureUtils::encode).sorted().collect(Collectors.toList());
+
+        // 将转译后的请求参数用&拼接   & encode 之后 是 %26
+        String canonicalizedQueryString = Joiner.on("%26").join(pList);
+
+        // 生成 stringToSign
+        String stringToSign = Joiner.on("&").join(action.getMethod(), URLEncoder.encode("/", "utf-8"), canonicalizedQueryString);
+
+        // 生成 hmac
+        String hmac = SignatureUtils.hmacSHA1Encrypt(stringToSign, context.getSecretKey() + "&");
+
+        // 最终发出的url  需要对value 进行转译
+        String url = Joiner.on("&").join(params) + "&Signature=" + SignatureUtils.encode(hmac);
+        return Joiner.on("?").join(action.getUrl(), url);
+    }
+
+    private static String getVpcSubnetUrl(UniSubnetRequest subnetReq, UniCloudConsts.Action action) throws Exception {
+        Map<String, Object> parameters;
+        if (StringUtils.equalsIgnoreCase("GET", action.getMethod())) {
+            parameters = subnetReq.toMap();
+        } else if (StringUtils.equalsIgnoreCase("POST", action.getMethod())) {
+            parameters = Maps.newHashMap();
+        } else if (StringUtils.equalsIgnoreCase("PUT", action.getMethod())) {
+            parameters = subnetReq.toMap();
+        } else if (StringUtils.equalsIgnoreCase("DELETE", action.getMethod())) {
+            parameters = subnetReq.toMap();
+        } else {
+            return StringUtils.EMPTY;
+        }
+
+        // 添加公共参数
+        addCommonParams(parameters);
+        parameters.put("Action", action.getAction());
+        parameters.put("RegionId", subnetReq.getRegionId());
+        parameters.put("VpcId", subnetReq.getVpcId());
 
         // 将原始uri 中的key value 进行 encode
         List<String> params = SignatureUtils.paramsToQuery(parameters);

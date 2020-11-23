@@ -13,6 +13,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.config.Registry;
@@ -195,6 +196,34 @@ public class HttpUtils {
         setCommonHeaders(httpDelete);
 
         return execute(httpDelete);
+    }
+
+    /**
+     * put请求,参数都在url中
+     *
+     * @param url 请求的url地址
+     * @return
+     */
+    public static String put(String url) throws Exception {
+        HttpPut httpPut = new HttpPut(url);
+        setCommonHeaders(httpPut);
+
+        return execute(httpPut);
+    }
+
+    /**
+     * put请求，参数在body中
+     *
+     * @param url 请求的url地址
+     * @return
+     */
+    public static String putBody(String url, UniRequest uniRequest) throws Exception {
+        HttpPut httpPut = new HttpPut(url);
+        setCommonHeaders(httpPut);
+        System.out.println(JsonUtils.toJsonString(uniRequest));
+        httpPut.setEntity(new StringEntity(JsonUtils.toJsonString(uniRequest), StandardCharsets.UTF_8));
+
+        return execute(httpPut);
     }
 
     private static String execute(HttpUriRequest request) throws Exception {
