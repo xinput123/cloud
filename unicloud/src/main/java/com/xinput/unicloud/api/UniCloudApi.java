@@ -1,5 +1,6 @@
 package com.xinput.unicloud.api;
 
+import com.google.common.collect.Lists;
 import com.xinput.cloud.api.CloudApi;
 import com.xinput.cloud.domain.CloudConfig;
 import com.xinput.cloud.domain.req.DeleteEcsReq;
@@ -9,6 +10,7 @@ import com.xinput.cloud.domain.req.RunEcsReq;
 import com.xinput.cloud.domain.req.StartEcsReq;
 import com.xinput.cloud.domain.req.StopEcsReq;
 import com.xinput.cloud.domain.resp.DeleteEcsResp;
+import com.xinput.cloud.domain.resp.DescribeEcsResp;
 import com.xinput.cloud.domain.resp.DetailEcsResp;
 import com.xinput.cloud.domain.resp.RunEcsResp;
 import com.xinput.cloud.domain.resp.StartEcsResp;
@@ -23,11 +25,14 @@ import com.xinput.unicloud.model.reqeust.ecs.UniCloudRunEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudStartEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudStopEcsReq;
 import com.xinput.unicloud.model.response.ecs.UniCloudDeleteEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudDesctibeEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDetailEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudRunEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudStartEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudStopEcsResp;
 import com.xinput.unicloud.util.UniCloudFactory;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:xinput.xx@gmail.com">xinput</a>
@@ -42,9 +47,34 @@ public class UniCloudApi implements CloudApi {
     }
 
     @Override
-    public void describeEcs(DescribeEcsReq describeEcsReq) throws Exception {
-        UniCloudDescribeEcsReq uniCloudDescribeEcsReq = new UniCloudDescribeEcsReq(describeEcsReq);
-        UniCloudFactory.Ecs.describeEcs(uniCloudDescribeEcsReq);
+    public DescribeEcsResp describeEcs(DescribeEcsReq describeEcsReq) throws Exception {
+        UniCloudDesctibeEcsResp uniCloudDesctibeEcsResp =
+                UniCloudFactory.Ecs.describeEcs(new UniCloudDescribeEcsReq(describeEcsReq));
+
+        DescribeEcsResp describeEcsResp = new DescribeEcsResp();
+        describeEcsResp.setPage(uniCloudDesctibeEcsResp.getPage())
+                .setSize(uniCloudDesctibeEcsResp.getSize())
+                .setTotalCount(uniCloudDesctibeEcsResp.getTotalCount())
+                .setTotalPages(uniCloudDesctibeEcsResp.getTotalPages());
+
+        List<UniCloudDesctibeEcsResp.UniCloudEcsInfo> uniCloudEcsInfos = uniCloudDesctibeEcsResp.getUniCloudEcsInfos();
+        if (uniCloudEcsInfos != null && uniCloudEcsInfos.size() > 0) {
+            int size = uniCloudEcsInfos.size();
+            List<DescribeEcsResp.CloudEcsInfo> cloudEcsInfos = Lists.newArrayListWithCapacity(size);
+            for (UniCloudDesctibeEcsResp.UniCloudEcsInfo uniCloudEcsInfo : uniCloudEcsInfos) {
+                DescribeEcsResp.CloudEcsInfo cloudEcsInfo = new DescribeEcsResp.CloudEcsInfo();
+                cloudEcsInfo.setInstanceId(uniCloudEcsInfo.getInstanceId());
+                cloudEcsInfo.setInstanceName(uniCloudEcsInfo.getInstanceName());
+                cloudEcsInfo.setStatus(uniCloudEcsInfo.getStatus());
+                cloudEcsInfo.setZone(uniCloudEcsInfo.getAzoneId());
+                cloudEcsInfo.setIp(uniCloudEcsInfo.getIp());
+
+                cloudEcsInfos.add(cloudEcsInfo);
+            }
+            describeEcsResp.setEcsInfos(cloudEcsInfos);
+        }
+
+        return describeEcsResp;
     }
 
     @Override

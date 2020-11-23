@@ -28,6 +28,7 @@ import com.xinput.unicloud.model.reqeust.vpc.UniCloudCreateVpcReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDeleteVpcReq;
 import com.xinput.unicloud.model.reqeust.vpc.UniCloudDescribeVpcReq;
 import com.xinput.unicloud.model.response.ecs.UniCloudDeleteEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudDesctibeEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDetailEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudRunEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudStartEcsResp;
@@ -66,8 +67,8 @@ public class UniCloudFactory {
      * 主机实例
      */
     public static class Ecs {
-        public static void describeEcs(UniCloudDescribeEcsReq uniCloudDescribeEcsReq) throws Exception {
-            sendRequest(uniCloudDescribeEcsReq);
+        public static UniCloudDesctibeEcsResp describeEcs(UniCloudDescribeEcsReq uniCloudDescribeEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(uniCloudDescribeEcsReq), UniCloudDesctibeEcsResp.class);
         }
 
         public static UniCloudDetailEcsResp detailEcs(UniCloudDetailEcsReq uniCloudDetailEcsReq) throws Exception {

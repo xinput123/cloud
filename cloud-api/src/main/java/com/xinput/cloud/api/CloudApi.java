@@ -8,6 +8,7 @@ import com.xinput.cloud.domain.req.RunEcsReq;
 import com.xinput.cloud.domain.req.StartEcsReq;
 import com.xinput.cloud.domain.req.StopEcsReq;
 import com.xinput.cloud.domain.resp.DeleteEcsResp;
+import com.xinput.cloud.domain.resp.DescribeEcsResp;
 import com.xinput.cloud.domain.resp.DetailEcsResp;
 import com.xinput.cloud.domain.resp.RunEcsResp;
 import com.xinput.cloud.domain.resp.StartEcsResp;
@@ -29,9 +30,10 @@ public interface CloudApi {
     /**
      * 云主机实例列表
      *
+     * @return
      * @throws Exception exception
      */
-    void describeEcs(DescribeEcsReq describeEcsReq) throws Exception;
+    DescribeEcsResp describeEcs(DescribeEcsReq describeEcsReq) throws Exception;
 
     /**
      * 云主机实例详情

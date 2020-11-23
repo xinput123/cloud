@@ -10,11 +10,11 @@ import com.xinput.cloud.domain.req.RunEcsReq;
 import com.xinput.cloud.domain.req.StartEcsReq;
 import com.xinput.cloud.domain.req.StopEcsReq;
 import com.xinput.cloud.domain.resp.DeleteEcsResp;
+import com.xinput.cloud.domain.resp.DescribeEcsResp;
 import com.xinput.cloud.domain.resp.DetailEcsResp;
 import com.xinput.cloud.domain.resp.RunEcsResp;
 import com.xinput.cloud.domain.resp.StartEcsResp;
 import com.xinput.cloud.domain.resp.StopEcsResp;
-import com.xinput.cloud.exception.CloudException;
 import com.xinput.cloud.exception.ParamException;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -58,12 +58,8 @@ public class Cloud {
         cloudApi.initCloud(info);
     }
 
-    public static void describeEcs(DescribeEcsReq describeEcsReq) throws CloudException {
-        try {
-            cloudApi.describeEcs(describeEcsReq);
-        } catch (Exception e) {
-            throw new CloudException(e);
-        }
+    public static DescribeEcsResp describeEcs(DescribeEcsReq describeEcsReq) throws Exception {
+        return cloudApi.describeEcs(describeEcsReq);
     }
 
     /**
