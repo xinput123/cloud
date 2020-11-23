@@ -10,6 +10,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -168,6 +169,12 @@ public class HttpUtils {
         return execute(httpGet);
     }
 
+    /**
+     * post请求
+     *
+     * @param url 请求的url地址
+     * @return
+     */
     public static String post(String url, UniRequest uniRequest) throws Exception {
         HttpPost httpPost = new HttpPost(url);
         setCommonHeaders(httpPost);
@@ -175,6 +182,19 @@ public class HttpUtils {
         httpPost.setEntity(new StringEntity(JsonUtils.toJsonString(uniRequest), StandardCharsets.UTF_8));
 
         return execute(httpPost);
+    }
+
+    /**
+     * delete请求
+     *
+     * @param url 请求的url地址
+     * @return
+     */
+    public static String delete(String url) throws Exception {
+        HttpDelete httpDelete = new HttpDelete(url);
+        setCommonHeaders(httpDelete);
+
+        return execute(httpDelete);
     }
 
     private static String execute(HttpUriRequest request) throws Exception {
