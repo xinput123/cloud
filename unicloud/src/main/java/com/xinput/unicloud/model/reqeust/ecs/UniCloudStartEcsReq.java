@@ -2,7 +2,6 @@ package com.xinput.unicloud.model.reqeust.ecs;
 
 import com.xinput.cloud.domain.req.StartEcsReq;
 import com.xinput.cloud.exception.ParamException;
-import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
 
@@ -34,7 +33,6 @@ public class UniCloudStartEcsReq extends UniRequest {
     }
 
     public UniCloudStartEcsReq(@NotNull(message = "对象[startEcsReq]不能为空") StartEcsReq startEcsReq) {
-        super.setAction(UniCloudConsts.Action.START_ECS.getAction());
         if (startEcsReq.getRegion() != null) {
             super.setRegionId(startEcsReq.getRegion().getRegionId());
         }
@@ -43,10 +41,7 @@ public class UniCloudStartEcsReq extends UniRequest {
 
     @Override
     public void checkConstraints() throws ParamException {
-        if (!StringUtils.equalsIgnoreCase(UniCloudConsts.Action.START_ECS.getAction(), this.getAction())) {
-            this.setAction(UniCloudConsts.Action.START_ECS.getAction());
-        }
-
+        this.setAction(UniCloudConsts.Action.START_ECS.getAction());
         this.checkField();
     }
 }

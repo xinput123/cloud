@@ -396,15 +396,12 @@ public class UniCloudRunEcsReq extends UniRequest {
             throw new ParamException("字段 [keyPair]或[password] 不能都为空.");
         }
 
-        if (!StringUtils.equalsIgnoreCase(UniCloudConsts.Action.RUN_ECS.getAction(), this.getAction())) {
-            this.setAction(UniCloudConsts.Action.RUN_ECS.getAction());
-        }
+        this.setAction(UniCloudConsts.Action.RUN_ECS.getAction());
 
         this.checkField();
     }
 
     public UniCloudRunEcsReq(RunEcsReq runEcsReq) {
-        super.setAction(UniCloudConsts.Action.RUN_ECS.getAction());
         if (runEcsReq.getRegion() != null) {
             super.setRegionId(runEcsReq.getRegion().getRegionId());
         }

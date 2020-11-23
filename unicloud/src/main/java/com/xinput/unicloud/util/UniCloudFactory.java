@@ -67,26 +67,44 @@ public class UniCloudFactory {
      * 主机实例
      */
     public static class Ecs {
+        /**
+         * 查询云主机实例列表
+         */
         public static UniCloudDesctibeEcsResp describeEcs(UniCloudDescribeEcsReq uniCloudDescribeEcsReq) throws Exception {
             return JsonUtils.toBean(sendRequest(uniCloudDescribeEcsReq), UniCloudDesctibeEcsResp.class);
         }
 
+        /**
+         * 查询云主机实例详情
+         */
         public static UniCloudDetailEcsResp detailEcs(UniCloudDetailEcsReq uniCloudDetailEcsReq) throws Exception {
             return JsonUtils.toBean(sendRequest(uniCloudDetailEcsReq), UniCloudDetailEcsResp.class);
         }
 
+        /**
+         * 创建云主机
+         */
         public static UniCloudRunEcsResp runEcs(UniCloudRunEcsReq uniCloudRunEcsReq) throws Exception {
             return JsonUtils.toBean(sendRequest(uniCloudRunEcsReq), UniCloudRunEcsResp.class);
         }
 
+        /**
+         * 对云主机关机
+         */
         public static UniCloudStopEcsResp stopEcs(UniCloudStopEcsReq uniCloudStopEcsReq) throws Exception {
             return JsonUtils.toBean(sendRequest(uniCloudStopEcsReq), UniCloudStopEcsResp.class);
         }
 
+        /**
+         * 对云主机开机
+         */
         public static UniCloudStartEcsResp startEcs(UniCloudStartEcsReq uniCloudStartEcsReq) throws Exception {
             return JsonUtils.toBean(sendRequest(uniCloudStartEcsReq), UniCloudStartEcsResp.class);
         }
 
+        /**
+         * 删除云主机
+         */
         public static UniCloudDeleteEcsResp deleteECs(UniCloudDeleteEcsReq uniCloudDeleteEcsReq) throws Exception {
             return JsonUtils.toBean(sendRequest(uniCloudDeleteEcsReq), UniCloudDeleteEcsResp.class);
         }

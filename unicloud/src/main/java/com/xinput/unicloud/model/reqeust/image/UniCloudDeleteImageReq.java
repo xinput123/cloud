@@ -1,7 +1,6 @@
 package com.xinput.unicloud.model.reqeust.image;
 
 import com.xinput.cloud.exception.ParamException;
-import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
 
@@ -33,10 +32,7 @@ public class UniCloudDeleteImageReq extends UniRequest {
 
     @Override
     public void checkConstraints() throws ParamException {
-        if (!StringUtils.equalsIgnoreCase(UniCloudConsts.Action.DELETE_IMAGES.getAction(), this.getAction())) {
-            this.setAction(UniCloudConsts.Action.DELETE_IMAGES.getAction());
-        }
-
+        this.setAction(UniCloudConsts.Action.DELETE_IMAGES.getAction());
         this.checkField();
     }
 }

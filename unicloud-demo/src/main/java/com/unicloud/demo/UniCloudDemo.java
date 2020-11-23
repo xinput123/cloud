@@ -115,7 +115,7 @@ public class UniCloudDemo {
     public void startEcs() throws Exception {
         StartEcsReq startEcsReq = new StartEcsReq();
         startEcsReq.setRegion(CloudConsts.Region.UNICLOUD_HB1_BJ3);
-        startEcsReq.setInstanceId("ecs-kdy4iy46l6j7");
+        startEcsReq.setInstanceId("ecs-kd24pr6qdpko");
 
         StartEcsResp startEcsResp = Cloud.startEcs(startEcsReq);
         System.out.println("\n\n\n=======开机响应值==========");
@@ -131,7 +131,7 @@ public class UniCloudDemo {
     public void deleteEcs() throws Exception {
         DeleteEcsReq deleteEcsReq = new DeleteEcsReq();
         deleteEcsReq.setRegion(CloudConsts.Region.UNICLOUD_HB1_BJ3);
-        deleteEcsReq.setInstanceId("ecs-kdy4iy46l6j7");
+        deleteEcsReq.setInstanceId("ecs-kd24pr6qdpko");
 
         DeleteEcsResp deleteEcsResp = Cloud.deleteEcs(deleteEcsReq);
         System.out.println("\n\n\n=======删除主机响应值==========");

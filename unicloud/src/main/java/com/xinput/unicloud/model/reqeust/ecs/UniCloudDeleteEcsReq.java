@@ -2,7 +2,6 @@ package com.xinput.unicloud.model.reqeust.ecs;
 
 import com.xinput.cloud.domain.req.DeleteEcsReq;
 import com.xinput.cloud.exception.ParamException;
-import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
 
@@ -34,7 +33,6 @@ public class UniCloudDeleteEcsReq extends UniRequest {
     }
 
     public UniCloudDeleteEcsReq(@NotNull(message = "对象[deleteEcsReq]不能为空") DeleteEcsReq deleteEcsReq) {
-        super.setAction(UniCloudConsts.Action.STOP_ECS.getAction());
         if (deleteEcsReq.getRegion() != null) {
             super.setRegionId(deleteEcsReq.getRegion().getRegionId());
         }
@@ -43,10 +41,7 @@ public class UniCloudDeleteEcsReq extends UniRequest {
 
     @Override
     public void checkConstraints() throws ParamException {
-        if (!StringUtils.equalsIgnoreCase(UniCloudConsts.Action.STOP_ECS.getAction(), this.getAction())) {
-            this.setAction(UniCloudConsts.Action.STOP_ECS.getAction());
-        }
-
+        this.setAction(UniCloudConsts.Action.DELETE_ECS.getAction());
         this.checkField();
     }
 }

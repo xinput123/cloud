@@ -2,7 +2,6 @@ package com.xinput.unicloud.model.reqeust.ecs;
 
 import com.xinput.cloud.domain.req.DetailEcsReq;
 import com.xinput.cloud.exception.ParamException;
-import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
 
@@ -33,7 +32,6 @@ public class UniCloudDetailEcsReq extends UniRequest {
     }
 
     public UniCloudDetailEcsReq(DetailEcsReq detailEcsReq) {
-        super.setAction(UniCloudConsts.Action.DETAIL_ECS.getAction());
         if (detailEcsReq.getRegion() != null) {
             super.setRegionId(detailEcsReq.getRegion().getRegionId());
         }
@@ -42,10 +40,7 @@ public class UniCloudDetailEcsReq extends UniRequest {
 
     @Override
     public void checkConstraints() throws ParamException {
-        if (!StringUtils.equalsIgnoreCase(UniCloudConsts.Action.DETAIL_ECS.getAction(), this.getAction())) {
-            this.setAction(UniCloudConsts.Action.DETAIL_ECS.getAction());
-        }
-
+        this.setAction(UniCloudConsts.Action.DETAIL_ECS.getAction());
         checkField();
     }
 }

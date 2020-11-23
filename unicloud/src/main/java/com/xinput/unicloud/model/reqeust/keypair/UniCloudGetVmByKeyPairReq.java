@@ -1,7 +1,6 @@
 package com.xinput.unicloud.model.reqeust.keypair;
 
 import com.xinput.cloud.exception.ParamException;
-import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
 
@@ -33,10 +32,7 @@ public class UniCloudGetVmByKeyPairReq extends UniRequest {
 
     @Override
     public void checkConstraints() throws ParamException {
-        if (!StringUtils.equalsIgnoreCase(UniCloudConsts.Action.GET_VM_BY_KEY_PAIR.getAction(), this.getAction())) {
-            this.setAction(UniCloudConsts.Action.GET_VM_BY_KEY_PAIR.getAction());
-        }
-
+        this.setAction(UniCloudConsts.Action.GET_VM_BY_KEY_PAIR.getAction());
         this.checkField();
     }
 }

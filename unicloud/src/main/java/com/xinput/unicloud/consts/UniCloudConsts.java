@@ -15,6 +15,9 @@ public class UniCloudConsts {
         RUN_ECS("RunEcs", "https://api.unicloud.com/compute", "POST", "创建云主机"),
         START_ECS("StartEcs", "https://api.unicloud.com/compute", "GET", "开启云主机"),
         STOP_ECS("StopEcs", "https://api.unicloud.com/compute", "GET", "关闭云主机"),
+        DELETE_ECS("DeleteEcs", "https://api.unicloud.com/compute", "GET", "删除云主机"),
+
+
         // 镜像快照
         DESCRIBE_IMAGE("DescribeImages", "https://api.unicloud.com/compute", "GET", "查看私有镜像列表"),
         CREATE_IMAGE("CreateImage", "https://api.unicloud.com/compute", "GET", "生成私有镜像"),
