@@ -10,9 +10,12 @@ import com.xinput.unicloud.model.reqeust.UniRequest;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDeleteEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDescribeEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDetailEcsReq;
+import com.xinput.unicloud.model.reqeust.ecs.UniCloudRebootEcsReq;
+import com.xinput.unicloud.model.reqeust.ecs.UniCloudResetEcsPasswordReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudRunEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudStartEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudStopEcsReq;
+import com.xinput.unicloud.model.reqeust.ecs.UniCloudUpdateEcsNameReq;
 import com.xinput.unicloud.model.reqeust.image.UniCloudCreateEcsSysSnapshotReq;
 import com.xinput.unicloud.model.reqeust.image.UniCloudCreateImageReq;
 import com.xinput.unicloud.model.reqeust.image.UniCloudDeleteImageReq;
@@ -32,9 +35,12 @@ import com.xinput.unicloud.model.reqeust.vpc.UniCloudUpdateVpcReq;
 import com.xinput.unicloud.model.response.ecs.UniCloudDeleteEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDesctibeEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDetailEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudRebootEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudResetEcsPasswordResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudRunEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudStartEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudStopEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudUpdateEcsNameResp;
 import com.xinput.unicloud.model.response.image.UniCloudCreateEcsSysSnapshotResp;
 import com.xinput.unicloud.model.response.image.UniCloudCreateImageResp;
 import com.xinput.unicloud.model.response.image.UniCloudDeleteImageResp;
@@ -75,43 +81,64 @@ public class UniCloudFactory {
         /**
          * 查询云主机实例列表
          */
-        public static UniCloudDesctibeEcsResp describe(UniCloudDescribeEcsReq uniCloudDescribeEcsReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(uniCloudDescribeEcsReq), UniCloudDesctibeEcsResp.class);
+        public static UniCloudDesctibeEcsResp describe(UniCloudDescribeEcsReq describeEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(describeEcsReq), UniCloudDesctibeEcsResp.class);
         }
 
         /**
          * 查询云主机实例详情
          */
-        public static UniCloudDetailEcsResp detail(UniCloudDetailEcsReq uniCloudDetailEcsReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(uniCloudDetailEcsReq), UniCloudDetailEcsResp.class);
+        public static UniCloudDetailEcsResp detail(UniCloudDetailEcsReq detailEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(detailEcsReq), UniCloudDetailEcsResp.class);
         }
 
         /**
          * 创建云主机
          */
-        public static UniCloudRunEcsResp create(UniCloudRunEcsReq uniCloudRunEcsReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(uniCloudRunEcsReq), UniCloudRunEcsResp.class);
+        public static UniCloudRunEcsResp create(UniCloudRunEcsReq runEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(runEcsReq), UniCloudRunEcsResp.class);
         }
 
         /**
          * 对云主机关机
          */
-        public static UniCloudStopEcsResp stop(UniCloudStopEcsReq uniCloudStopEcsReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(uniCloudStopEcsReq), UniCloudStopEcsResp.class);
+        public static UniCloudStopEcsResp stop(UniCloudStopEcsReq stopEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(stopEcsReq), UniCloudStopEcsResp.class);
         }
 
         /**
          * 对云主机开机
          */
-        public static UniCloudStartEcsResp start(UniCloudStartEcsReq uniCloudStartEcsReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(uniCloudStartEcsReq), UniCloudStartEcsResp.class);
+        public static UniCloudStartEcsResp start(UniCloudStartEcsReq startEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(startEcsReq), UniCloudStartEcsResp.class);
         }
 
         /**
          * 删除云主机
          */
-        public static UniCloudDeleteEcsResp delete(UniCloudDeleteEcsReq uniCloudDeleteEcsReq) throws Exception {
-            return JsonUtils.toBean(sendRequest(uniCloudDeleteEcsReq), UniCloudDeleteEcsResp.class);
+        public static UniCloudDeleteEcsResp delete(UniCloudDeleteEcsReq deleteEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(deleteEcsReq), UniCloudDeleteEcsResp.class);
+        }
+
+        /**
+         * 重启云主机
+         */
+        public static UniCloudRebootEcsResp reboot(UniCloudRebootEcsReq rebootEcsReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(rebootEcsReq), UniCloudRebootEcsResp.class);
+        }
+
+        /**
+         * 修改云主机名称
+         */
+        public static UniCloudUpdateEcsNameResp updateEcsName(UniCloudUpdateEcsNameReq updateEcsNameReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(updateEcsNameReq), UniCloudUpdateEcsNameResp.class);
+        }
+
+        /**
+         * 修改云主机密码
+         */
+        public static UniCloudResetEcsPasswordResp updatePassword(UniCloudResetEcsPasswordReq updatePwdReq) throws Exception {
+            return JsonUtils.toBean(sendRequest(updatePwdReq), UniCloudResetEcsPasswordResp.class);
         }
     }
 

@@ -16,6 +16,9 @@ public class UniCloudConsts {
         START_ECS("StartEcs", "https://api.unicloud.com/compute", "GET", "开启云主机"),
         STOP_ECS("StopEcs", "https://api.unicloud.com/compute", "GET", "关闭云主机"),
         DELETE_ECS("DeleteEcs", "https://api.unicloud.com/compute", "GET", "删除云主机"),
+        REBOOT_ECS("RebootEcs", "https://api.unicloud.com/compute", "GET", "重启云主机"),
+        UPDATE_ECS_NAME("UpdateEcsName", "https://api.unicloud.com/compute", "GET", "修改云主机名称"),
+        RESET_ECS_PASSWORD("ResetEcsPassword", "https://api.unicloud.com/compute", "GET", "修改云主机登录密码"),
 
 
         // 镜像快照

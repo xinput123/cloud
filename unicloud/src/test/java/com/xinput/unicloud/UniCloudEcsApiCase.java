@@ -4,16 +4,24 @@ import com.xinput.cloud.consts.CloudConsts;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.cloud.util.JsonUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
+import com.xinput.unicloud.model.reqeust.ecs.UniCloudDeleteEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDescribeEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDetailEcsReq;
+import com.xinput.unicloud.model.reqeust.ecs.UniCloudRebootEcsReq;
+import com.xinput.unicloud.model.reqeust.ecs.UniCloudResetEcsPasswordReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudRunEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudStartEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudStopEcsReq;
+import com.xinput.unicloud.model.reqeust.ecs.UniCloudUpdateEcsNameReq;
+import com.xinput.unicloud.model.response.ecs.UniCloudDeleteEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDesctibeEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudDetailEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudRebootEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudResetEcsPasswordResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudRunEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudStartEcsResp;
 import com.xinput.unicloud.model.response.ecs.UniCloudStopEcsResp;
+import com.xinput.unicloud.model.response.ecs.UniCloudUpdateEcsNameResp;
 import com.xinput.unicloud.util.UniCloudFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -128,6 +136,58 @@ public class UniCloudEcsApiCase {
      */
     @Test
     public void reboot() throws Exception {
+        UniCloudRebootEcsReq req = new UniCloudRebootEcsReq();
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setInstanceId("ecs-keck47xwtk7c");
 
+        UniCloudRebootEcsResp resp = UniCloudFactory.Ecs.reboot(req);
+        System.out.println("---云主机关机---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
+     * 修改云主机名称
+     */
+    @Test
+    public void updateEcsName() throws Exception {
+        UniCloudUpdateEcsNameReq req = new UniCloudUpdateEcsNameReq();
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setInstanceId("ecs-keck47xwtk7c");
+        req.setInstanceName("xinput111");
+
+        UniCloudUpdateEcsNameResp resp = UniCloudFactory.Ecs.updateEcsName(req);
+        System.out.println("---修改云主机名称---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
+     * 修改云主机密码
+     */
+    @Test
+    public void updatePassword() throws Exception {
+        UniCloudResetEcsPasswordReq req = new UniCloudResetEcsPasswordReq();
+
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setInstanceId("ecs-keck47xwtk7c");
+        req.setPassword("1234567890");
+
+        UniCloudResetEcsPasswordResp resp = UniCloudFactory.Ecs.updatePassword(req);
+        System.out.println("---修改云主机名称---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
+     * 删除云主机
+     */
+    @Test
+    public void delete() throws Exception {
+        UniCloudDeleteEcsReq req = new UniCloudDeleteEcsReq();
+
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setInstanceId("ecs-keck47xwtk7c");
+
+        UniCloudDeleteEcsResp resp = UniCloudFactory.Ecs.delete(req);
+        System.out.println("---删除云主机---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
     }
 }
