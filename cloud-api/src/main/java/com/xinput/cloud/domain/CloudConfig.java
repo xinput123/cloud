@@ -1,14 +1,12 @@
 package com.xinput.cloud.domain;
 
-import com.xinput.cloud.exception.ParamException;
-
 import javax.validation.constraints.NotEmpty;
 
 /**
  * @author <a href="mailto:xinput.xx@gmail.com">xinput</a>
  * @date 2020-11-17 15:15
  */
-public class CloudConfig extends BaseInfo {
+public class CloudConfig {
 
     @NotEmpty(message = "[accessKey] 不能为空")
     private String accessKey;
@@ -40,8 +38,4 @@ public class CloudConfig extends BaseInfo {
         this.secretKey = secretKey;
     }
 
-    @Override
-    public void checkConstraints() throws ParamException {
-        checkField();
-    }
 }

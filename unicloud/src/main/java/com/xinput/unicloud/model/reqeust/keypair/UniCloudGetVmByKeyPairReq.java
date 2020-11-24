@@ -3,8 +3,10 @@ package com.xinput.unicloud.model.reqeust.keypair;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.Map;
 
 /**
  * 获取应用密钥对的云主机 参数
@@ -34,5 +36,17 @@ public class UniCloudGetVmByKeyPairReq extends UniRequest {
     public void checkConstraints() throws ParamException {
         this.setAction(UniCloudConsts.Action.GET_VM_BY_KEY_PAIR.getAction());
         this.checkField();
+    }
+
+    @Override
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = this.toMap();
+        this.addCommonParams(params);
+        return params;
+    }
+
+    @Override
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.get(url);
     }
 }

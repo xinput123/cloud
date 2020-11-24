@@ -393,4 +393,9 @@ public class UniCloudDesctibeEcsResp extends UniResponse {
             this.payType = payType;
         }
     }
+
+    @Override
+    public boolean isSuccess() {
+        return true;
+    }
 }

@@ -4,6 +4,9 @@ import com.xinput.cloud.domain.req.DescribeEcsReq;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.util.HttpUtils;
+
+import java.util.Map;
 
 /**
  * @author <a href="mailto:xinput.xx@gmail.com">xinput</a>
@@ -86,6 +89,9 @@ public class UniCloudDescribeEcsReq extends UniRequest {
         this.ipAddr = ipAddr;
     }
 
+    public UniCloudDescribeEcsReq() {
+    }
+
     public UniCloudDescribeEcsReq(DescribeEcsReq describeEcsReq) {
         if (describeEcsReq.getRegion() != null) {
             super.setRegionId(describeEcsReq.getRegion().getRegionId());
@@ -110,5 +116,17 @@ public class UniCloudDescribeEcsReq extends UniRequest {
         }
 
         checkField();
+    }
+
+    @Override
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = this.toMap();
+        this.addCommonParams(params);
+        return params;
+    }
+
+    @Override
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.get(url);
     }
 }

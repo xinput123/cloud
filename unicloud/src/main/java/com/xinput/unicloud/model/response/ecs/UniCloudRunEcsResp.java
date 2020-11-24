@@ -2,6 +2,7 @@ package com.xinput.unicloud.model.response.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xinput.unicloud.model.response.UniResponse;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
@@ -38,5 +39,13 @@ public class UniCloudRunEcsResp extends UniResponse {
 
     public void setInstanceIds(List<String> instanceIds) {
         this.instanceIds = instanceIds;
+    }
+
+    @Override
+    public boolean isSuccess() {
+        if (CollectionUtils.isNotEmpty(this.instanceIds)) {
+            return true;
+        }
+        return false;
     }
 }

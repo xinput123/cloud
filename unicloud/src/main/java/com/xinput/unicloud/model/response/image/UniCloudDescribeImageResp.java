@@ -200,4 +200,9 @@ public class UniCloudDescribeImageResp extends UniResponse {
         public static class DataImageInfo {
         }
     }
+
+    @Override
+    public boolean isSuccess() {
+        return true;
+    }
 }

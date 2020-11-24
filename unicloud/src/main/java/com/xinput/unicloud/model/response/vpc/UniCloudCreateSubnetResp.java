@@ -2,6 +2,7 @@ package com.xinput.unicloud.model.response.vpc;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.model.response.UniResponse;
 
 import java.util.List;
@@ -182,5 +183,13 @@ public class UniCloudCreateSubnetResp extends UniResponse {
                 this.start = start;
             }
         }
+    }
+
+    @Override
+    public boolean isSuccess() {
+        if (StringUtils.equalsIgnoreCase("Network.Success", this.getCode())) {
+            return true;
+        }
+        return false;
     }
 }

@@ -94,4 +94,9 @@ public class UniCloudGetVmByKeyPairResp extends UniResponse {
             this.status = status;
         }
     }
+
+    @Override
+    public boolean isSuccess() {
+        return true;
+    }
 }

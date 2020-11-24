@@ -11,4 +11,8 @@ import com.xinput.unicloud.model.response.UniResponse;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UniCloudDeleteEcsResp extends UniResponse {
+    @Override
+    public boolean isSuccess() {
+        return false;
+    }
 }

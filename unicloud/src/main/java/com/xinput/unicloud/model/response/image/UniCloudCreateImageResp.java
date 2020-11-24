@@ -1,6 +1,7 @@
 package com.xinput.unicloud.model.response.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.model.response.UniResponse;
 
 /**
@@ -23,5 +24,13 @@ public class UniCloudCreateImageResp extends UniResponse {
 
     public void setImageId(String imageId) {
         this.imageId = imageId;
+    }
+
+    @Override
+    public boolean isSuccess() {
+        if (StringUtils.isNotEmpty(imageId)) {
+            return true;
+        }
+        return false;
     }
 }

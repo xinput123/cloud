@@ -11,5 +11,8 @@ import com.xinput.unicloud.model.response.UniResponse;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UniCloudEcsSysSnapshotRollBackResp extends UniResponse {
-
+    @Override
+    public boolean isSuccess() {
+        return true;
+    }
 }

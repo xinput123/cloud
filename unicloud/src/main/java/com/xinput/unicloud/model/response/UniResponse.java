@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author <a href="mailto:xinput.xx@gmail.com">xinput</a>
  * @date 2020-11-19 18:15
  */
-public class UniResponse {
+public abstract class UniResponse {
 
     /**
      * 请求Id
@@ -49,4 +49,9 @@ public class UniResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    /**
+     * 当前请求是否成功
+     */
+    public abstract boolean isSuccess();
 }

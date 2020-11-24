@@ -179,7 +179,7 @@ public class HttpUtils {
     public static String post(String url, UniRequest uniRequest) throws Exception {
         HttpPost httpPost = new HttpPost(url);
         setCommonHeaders(httpPost);
-        System.out.println(JsonUtils.toJsonString(uniRequest));
+        logger.info("请求内容:{}.", JsonUtils.toJsonString(uniRequest));
         httpPost.setEntity(new StringEntity(JsonUtils.toJsonString(uniRequest), StandardCharsets.UTF_8));
 
         return execute(httpPost);
@@ -220,7 +220,7 @@ public class HttpUtils {
     public static String putBody(String url, UniRequest uniRequest) throws Exception {
         HttpPut httpPut = new HttpPut(url);
         setCommonHeaders(httpPut);
-        System.out.println(JsonUtils.toJsonString(uniRequest));
+        logger.info("请求内容:{}.", JsonUtils.toJsonString(uniRequest));
         httpPut.setEntity(new StringEntity(JsonUtils.toJsonString(uniRequest), StandardCharsets.UTF_8));
 
         return execute(httpPut);
@@ -232,10 +232,9 @@ public class HttpUtils {
         try {
             HttpResponse response = getInstance().execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
-            logger.info("REQUEST URI:[{}], STATUS CODE : [{}]. ", request.getURI(), statusCode);
             // only for record log
             if (HttpStatus.SC_OK == statusCode) {
-                logger.info("REQUEST URI:[{}] SUCCESS. ", request.getURI());
+                logger.info("REQUEST URI:[{}], STATUS CODE : [{}]. ", request.getURI(), statusCode);
             } else {
                 logger.error("REQUEST URI:[{}] ERROR. ERROR CODE : [{}].", request.getURI(), statusCode);
             }
@@ -249,7 +248,7 @@ public class HttpUtils {
             // 确保释放连接
             EntityUtils.consume(entity);
         }
-
+        // TODO
         System.out.println("响应值：\n " + content);
         return content;
     }

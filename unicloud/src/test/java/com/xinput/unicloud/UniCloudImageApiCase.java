@@ -47,7 +47,7 @@ public class UniCloudImageApiCase {
      */
     @Test
     public void createImage() throws Exception {
-        String instanceId = "ecs-kd24pr6qdpko";
+        String instanceId = "ecs-kd9mjhb97flb";
         UniCloudCreateImageReq req = new UniCloudCreateImageReq();
         req.setAction(UniCloudConsts.Action.CREATE_IMAGE.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
@@ -67,7 +67,7 @@ public class UniCloudImageApiCase {
         UniCloudDeleteImageReq req = new UniCloudDeleteImageReq();
         req.setAction(UniCloudConsts.Action.DELETE_IMAGES.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setImageId("img-kd3r4wqq288y");
+        req.setImageId("img-keat9rdtlpcs");
 
         UniCloudDeleteImageResp resp = UniCloudFactory.Image.delete(req);
         System.out.println("---释放私有镜像---\n\n\n");
@@ -81,9 +81,8 @@ public class UniCloudImageApiCase {
     public void createSnapshot() throws Exception {
         UniCloudCreateEcsSysSnapshotReq req = new UniCloudCreateEcsSysSnapshotReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("ecs-kd24pr6qdpko");
+        req.setInstanceId("ecs-kd9mjhb97flb");
         req.setName("xinput");
-
 
         UniCloudCreateEcsSysSnapshotResp resp = UniCloudFactory.Image.createSnapshot(req);
         System.out.println("---创建系统盘快照---\n\n\n");

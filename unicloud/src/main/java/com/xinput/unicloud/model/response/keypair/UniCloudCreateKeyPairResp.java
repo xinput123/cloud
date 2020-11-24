@@ -115,4 +115,12 @@ public class UniCloudCreateKeyPairResp extends UniResponse {
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
+
+    @Override
+    public boolean isSuccess() {
+        if (this.instanceId != null) {
+            return true;
+        }
+        return false;
+    }
 }

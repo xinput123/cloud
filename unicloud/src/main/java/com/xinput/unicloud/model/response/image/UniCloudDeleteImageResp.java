@@ -12,4 +12,8 @@ import com.xinput.unicloud.model.response.UniResponse;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UniCloudDeleteImageResp extends UniResponse {
 
+    @Override
+    public boolean isSuccess() {
+        return true;
+    }
 }

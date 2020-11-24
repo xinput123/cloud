@@ -23,8 +23,8 @@ public class UniCloudKeyPairApiCase {
 
     @Before
     public void init() throws ParamException {
-        String ak = "XXX";
-        String sk = "XXX";
+        String ak = "xxx";
+        String sk = "xxx";
         UniCloudFactory.init(ak, sk);
     }
 
@@ -36,7 +36,7 @@ public class UniCloudKeyPairApiCase {
         UniCloudCreateKeyPairReq req = new UniCloudCreateKeyPairReq();
         req.setAction(UniCloudConsts.Action.CREATE_KEY_PAIR.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setName("xinput1");
+        req.setName("xinput3");
         UniCloudCreateKeyPairResp resp = UniCloudFactory.KeyPair.create(req);
         System.out.println("---创建密钥对---\n\n\n");
         System.out.println(JsonUtils.toJsonString(resp, true));
@@ -50,7 +50,7 @@ public class UniCloudKeyPairApiCase {
         UniCloudDeleteKeyPairReq req = new UniCloudDeleteKeyPairReq();
         req.setAction(UniCloudConsts.Action.DELETE_KEY_PAIR.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("kp-kd2pu4e9nl3n");
+        req.setInstanceId("kp-keaqb2qjabp7");
         UniCloudDeleteKeyPairResp resp = UniCloudFactory.KeyPair.delete(req);
         System.out.println("---删除密钥对---\n\n\n");
         System.out.println(JsonUtils.toJsonString(resp, true));
@@ -78,7 +78,7 @@ public class UniCloudKeyPairApiCase {
         UniCloudGetVmByKeyPairReq req = new UniCloudGetVmByKeyPairReq();
         req.setAction(UniCloudConsts.Action.GET_VM_BY_KEY_PAIR.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("kp-kd2pu4e9nl3n");
+        req.setInstanceId("kp-keaqb2qjabp7");
 
         UniCloudGetVmByKeyPairResp resp = UniCloudFactory.KeyPair.getVm(req);
         System.out.println("---获取应用密钥对的云主机---\n\n\n");

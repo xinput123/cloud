@@ -3,6 +3,9 @@ package com.xinput.unicloud.model.reqeust.vpc;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.util.HttpUtils;
+
+import java.util.Map;
 
 /**
  * 查询已创建的VPC列表 参数
@@ -47,5 +50,17 @@ public class UniCloudDescribeVpcReq extends UniRequest {
         this.setAction(UniCloudConsts.Action.DESCRIBE_VPC.getAction());
         this.checkField();
 
+    }
+
+    @Override
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = this.toMap();
+        this.addCommonParams(params);
+        return params;
+    }
+
+    @Override
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.get(url);
     }
 }

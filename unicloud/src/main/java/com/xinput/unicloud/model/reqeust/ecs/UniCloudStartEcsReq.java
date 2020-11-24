@@ -4,9 +4,11 @@ import com.xinput.cloud.domain.req.StartEcsReq;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 /**
  * 使用StartEcs对云主机开机
@@ -32,6 +34,9 @@ public class UniCloudStartEcsReq extends UniRequest {
         this.instanceId = instanceId;
     }
 
+    public UniCloudStartEcsReq() {
+    }
+
     public UniCloudStartEcsReq(@NotNull(message = "对象[startEcsReq]不能为空") StartEcsReq startEcsReq) {
         if (startEcsReq.getRegion() != null) {
             super.setRegionId(startEcsReq.getRegion().getRegionId());
@@ -43,5 +48,17 @@ public class UniCloudStartEcsReq extends UniRequest {
     public void checkConstraints() throws ParamException {
         this.setAction(UniCloudConsts.Action.START_ECS.getAction());
         this.checkField();
+    }
+
+    @Override
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = this.toMap();
+        this.addCommonParams(params);
+        return params;
+    }
+
+    @Override
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.get(url);
     }
 }

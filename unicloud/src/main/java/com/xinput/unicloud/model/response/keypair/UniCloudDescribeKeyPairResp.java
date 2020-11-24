@@ -160,4 +160,9 @@ public class UniCloudDescribeKeyPairResp extends UniResponse {
             this.regionId = regionId;
         }
     }
+
+    @Override
+    public boolean isSuccess() {
+        return true;
+    }
 }

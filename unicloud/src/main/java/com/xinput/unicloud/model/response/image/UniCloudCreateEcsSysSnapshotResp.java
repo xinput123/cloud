@@ -1,6 +1,7 @@
 package com.xinput.unicloud.model.response.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.model.response.UniResponse;
 
 /**
@@ -23,5 +24,13 @@ public class UniCloudCreateEcsSysSnapshotResp extends UniResponse {
 
     public void setSnapshotId(String snapshotId) {
         this.snapshotId = snapshotId;
+    }
+
+    @Override
+    public boolean isSuccess() {
+        if (StringUtils.isNotEmpty(snapshotId)) {
+            return true;
+        }
+        return false;
     }
 }

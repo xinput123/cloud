@@ -6,11 +6,14 @@ import com.xinput.cloud.exception.ParamException;
 import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:xinput.xx@gmail.com">xinput</a>
@@ -395,10 +398,16 @@ public class UniCloudRunEcsReq extends UniRequest {
         if (StringUtils.isAllEmpty(this.keyPair, this.password)) {
             throw new ParamException("字段 [keyPair]或[password] 不能都为空.");
         }
-
         this.setAction(UniCloudConsts.Action.RUN_ECS.getAction());
 
+        if (StringUtils.equalsIgnoreCase(CloudConsts.PayTypeEnum.UNICLOUD_CHARGING_HOURS.getPayType(), this.payType)) {
+            this.period = 1;
+        }
+
         this.checkField();
+    }
+
+    public UniCloudRunEcsReq() {
     }
 
     public UniCloudRunEcsReq(RunEcsReq runEcsReq) {
@@ -484,5 +493,18 @@ public class UniCloudRunEcsReq extends UniRequest {
         public void setTemplateId(String templateId) {
             this.templateId = templateId;
         }
+    }
+
+    @Override
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = new HashMap();
+        params.put("Action", this.getAction());
+        this.addCommonParams(params);
+        return params;
+    }
+
+    @Override
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.post(url, this);
     }
 }

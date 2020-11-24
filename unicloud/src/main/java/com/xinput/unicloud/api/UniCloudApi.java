@@ -42,14 +42,13 @@ public class UniCloudApi implements CloudApi {
 
     @Override
     public void initCloud(CloudConfig cloudConfig) throws ParamException {
-        cloudConfig.checkConstraints();
         UniCloudFactory.init(cloudConfig.getAccessKey(), cloudConfig.getSecretKey());
     }
 
     @Override
     public DescribeEcsResp describeEcs(DescribeEcsReq describeEcsReq) throws Exception {
         UniCloudDesctibeEcsResp uniCloudDesctibeEcsResp =
-                UniCloudFactory.Ecs.describeEcs(new UniCloudDescribeEcsReq(describeEcsReq));
+                UniCloudFactory.Ecs.describe(new UniCloudDescribeEcsReq(describeEcsReq));
 
         DescribeEcsResp describeEcsResp = new DescribeEcsResp();
         describeEcsResp.setPage(uniCloudDesctibeEcsResp.getPage())
@@ -80,7 +79,7 @@ public class UniCloudApi implements CloudApi {
     @Override
     public DetailEcsResp detailEcs(DetailEcsReq detailEcsReq) throws Exception {
         UniCloudDetailEcsResp uniCloudDetailEcsResp =
-                UniCloudFactory.Ecs.detailEcs(new UniCloudDetailEcsReq(detailEcsReq));
+                UniCloudFactory.Ecs.detail(new UniCloudDetailEcsReq(detailEcsReq));
         return new DetailEcsResp()
                 .setRequestId(uniCloudDetailEcsResp.getRequestId())
                 .setInstanceId(uniCloudDetailEcsResp.getId())
@@ -94,7 +93,7 @@ public class UniCloudApi implements CloudApi {
     @Override
     public RunEcsResp runEcs(RunEcsReq runEcsReq) throws Exception {
         UniCloudRunEcsResp uniCloudRunEcsResp =
-                UniCloudFactory.Ecs.runEcs(new UniCloudRunEcsReq(runEcsReq));
+                UniCloudFactory.Ecs.create(new UniCloudRunEcsReq(runEcsReq));
         System.out.println(JsonUtils.toJsonString(uniCloudRunEcsResp, true));
         return new RunEcsResp()
                 .setRequestId(uniCloudRunEcsResp.getRequestId())
@@ -103,14 +102,9 @@ public class UniCloudApi implements CloudApi {
     }
 
     @Override
-    public void renewEcs() throws Exception {
-
-    }
-
-    @Override
     public StartEcsResp startEcs(StartEcsReq startEcsReq) throws Exception {
         UniCloudStartEcsResp uniCloudStartEcsResp =
-                UniCloudFactory.Ecs.startEcs(new UniCloudStartEcsReq(startEcsReq));
+                UniCloudFactory.Ecs.start(new UniCloudStartEcsReq(startEcsReq));
         StartEcsResp startEcsResp = new StartEcsResp();
         startEcsResp.setRequestId(uniCloudStartEcsResp.getRequestId())
                 .setCode(uniCloudStartEcsResp.getCode())
@@ -126,7 +120,7 @@ public class UniCloudApi implements CloudApi {
     @Override
     public StopEcsResp stopEcs(StopEcsReq stopEcsReq) throws Exception {
         UniCloudStopEcsResp uniCloudStopEcsResp =
-                UniCloudFactory.Ecs.stopEcs(new UniCloudStopEcsReq(stopEcsReq));
+                UniCloudFactory.Ecs.stop(new UniCloudStopEcsReq(stopEcsReq));
         StopEcsResp stopEcsResp = new StopEcsResp();
         stopEcsResp.setRequestId(uniCloudStopEcsResp.getRequestId())
                 .setCode(uniCloudStopEcsResp.getCode())
@@ -163,7 +157,7 @@ public class UniCloudApi implements CloudApi {
     @Override
     public DeleteEcsResp deleteEcs(DeleteEcsReq deleteEcsReq) throws Exception {
         UniCloudDeleteEcsResp uniCloudDeleteEcsResp =
-                UniCloudFactory.Ecs.deleteECs(new UniCloudDeleteEcsReq(deleteEcsReq));
+                UniCloudFactory.Ecs.delete(new UniCloudDeleteEcsReq(deleteEcsReq));
         DeleteEcsResp deleteEcsResp = new DeleteEcsResp();
         deleteEcsResp.setRequestId(uniCloudDeleteEcsResp.getRequestId())
                 .setCode(uniCloudDeleteEcsResp.getCode())

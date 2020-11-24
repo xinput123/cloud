@@ -1,7 +1,11 @@
 package com.xinput.unicloud.model.response.vpc;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.xinput.cloud.util.StringUtils;
 import com.xinput.unicloud.model.response.UniResponse;
+
+import java.util.List;
 
 /**
  * 创建一个专有网络 响应值
@@ -12,107 +16,65 @@ import com.xinput.unicloud.model.response.UniResponse;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UniCloudCreateVpcResp extends UniResponse {
 
-    /**
-     * 密钥对ID
-     */
-    private String instanceId;
+    @JsonProperty(value = "Msg")
+    private String msg;
 
-    /**
-     * 名称
-     */
-    private String name;
+    @JsonProperty(value = "Res")
+    private VpcInfo vpcInfo;
 
-    /**
-     * 指纹
-     */
-    private String fingerPrint;
-
-    /**
-     * 区域
-     */
-    private String regionId;
-
-    /**
-     * 状态
-     */
-    private String status;
-
-    /**
-     * 公钥
-     */
-    private String publicKey;
-
-    /**
-     * 创建时间
-     */
-    private Long createTime;
-
-    /**
-     * 私钥
-     */
-    private String privateKey;
-
-    public String getInstanceId() {
-        return instanceId;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public String getName() {
-        return name;
+    public VpcInfo getVpcInfo() {
+        return vpcInfo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVpcInfo(VpcInfo vpcInfo) {
+        this.vpcInfo = vpcInfo;
     }
 
-    public String getFingerPrint() {
-        return fingerPrint;
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class VpcInfo {
+
+        /**
+         * 新创建的 VPC 实例的 ID
+         */
+        @JsonProperty(value = "VpcId")
+        private String vpcId;
+
+        /**
+         * 子网 Id
+         */
+        @JsonProperty(value = "SubnetId")
+        private List<String> subnetId;
+
+        public String getVpcId() {
+            return vpcId;
+        }
+
+        public void setVpcId(String vpcId) {
+            this.vpcId = vpcId;
+        }
+
+        public List<String> getSubnetId() {
+            return subnetId;
+        }
+
+        public void setSubnetId(List<String> subnetId) {
+            this.subnetId = subnetId;
+        }
     }
 
-    public void setFingerPrint(String fingerPrint) {
-        this.fingerPrint = fingerPrint;
-    }
-
-    public String getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(String regionId) {
-        this.regionId = regionId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getPrivateKey() {
-        return privateKey;
-    }
-
-    public void setPrivateKey(String privateKey) {
-        this.privateKey = privateKey;
+    @Override
+    public boolean isSuccess() {
+        if (StringUtils.equalsIgnoreCase("Network.Success", this.getCode())) {
+            return true;
+        }
+        return false;
     }
 }

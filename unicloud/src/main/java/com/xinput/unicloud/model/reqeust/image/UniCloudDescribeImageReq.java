@@ -3,6 +3,9 @@ package com.xinput.unicloud.model.reqeust.image;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.util.HttpUtils;
+
+import java.util.Map;
 
 /**
  * 查看私有镜像列表 参数
@@ -83,5 +86,17 @@ public class UniCloudDescribeImageReq extends UniRequest {
         if (this.size == null || this.size < 1) {
             this.size = 10;
         }
+    }
+
+    @Override
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = this.toMap();
+        this.addCommonParams(params);
+        return params;
+    }
+
+    @Override
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.get(url);
     }
 }

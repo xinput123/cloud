@@ -356,4 +356,9 @@ public class UniCloudDetailEcsResp extends UniResponse {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DataDiskIdsBean {
     }
+
+    @Override
+    public boolean isSuccess() {
+        return true;
+    }
 }

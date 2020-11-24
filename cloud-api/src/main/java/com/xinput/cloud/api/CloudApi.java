@@ -52,13 +52,6 @@ public interface CloudApi {
     RunEcsResp runEcs(RunEcsReq runEcsReq) throws Exception;
 
     /**
-     * 包年包月的主机实例续费
-     *
-     * @throws Exception exception
-     */
-    void renewEcs() throws Exception;
-
-    /**
      * 开机
      *
      * @throws Exception exception

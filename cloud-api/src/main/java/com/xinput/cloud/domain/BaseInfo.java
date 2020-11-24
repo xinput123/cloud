@@ -2,6 +2,8 @@ package com.xinput.cloud.domain;
 
 import com.google.common.collect.Maps;
 import com.xinput.cloud.exception.ParamException;
+import com.xinput.cloud.util.DateUtils;
+import com.xinput.cloud.util.ObjectId;
 import com.xinput.cloud.util.ValidateUtils;
 
 import java.beans.BeanInfo;
@@ -10,6 +12,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +33,24 @@ public abstract class BaseInfo {
         ValidateUtils.validate(this);
     }
 
-//    public abstract void addCommonParams();
+    /**
+     * 接口签名需要的参数
+     */
+    public abstract Map<String, Object> signatureParams();
+
+    /**
+     * 组装公共参数
+     *
+     * @param parameters
+     */
+    protected void addCommonParams(Map<String, Object> parameters) {
+        parameters.put("Format", "json");
+        parameters.put("Version", "2020-07-30");
+        parameters.put("SignatureMethod", "HMAC-SHA1");
+        parameters.put("Timestamp", DateUtils.formatIso8601Date(new Date()));
+        parameters.put("SignatureVersion", "1.0");
+        parameters.put("SignatureNonce", ObjectId.stringId());
+    }
 
     public Map<String, Object> toMap() {
         Map<String, Object> retParametersMap = Maps.newHashMap();

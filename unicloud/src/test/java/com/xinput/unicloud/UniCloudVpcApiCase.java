@@ -44,14 +44,15 @@ public class UniCloudVpcApiCase {
         UniCloudCreateVpcReq req = new UniCloudCreateVpcReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
         req.setInstanceCode("vpc.standard");
-        req.setVpcName("xinput");
+        req.setVpcName("xinput1");
         req.setVpcCidrBlock("192.172.0.0/16");
         req.setSubnetName("xinput-sub");
-        req.setSubnetCidrBlock("192.172.3.0/24");
+        req.setSubnetCidrBlock("192.172.1.0/24");
 
         UniCloudCreateVpcResp resp = UniCloudFactory.Vpc.create(req);
         System.out.println("---创建vpn网络---\n\n\n");
         System.out.println(JsonUtils.toJsonString(resp, true));
+        System.out.println("---创建vpn网络是否成功---" + resp.isSuccess());
     }
 
     /**
@@ -61,6 +62,7 @@ public class UniCloudVpcApiCase {
     public void describe() throws Exception {
         UniCloudDescribeVpcReq req = new UniCloudDescribeVpcReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setVpcId("vpc-5xv4tb4pxtgpb");
 
         UniCloudDescribeVpcResp resp = UniCloudFactory.Vpc.describe(req);
         System.out.println("---查看vpc列表---\n\n\n");
@@ -74,7 +76,7 @@ public class UniCloudVpcApiCase {
     public void update() throws Exception {
         UniCloudUpdateVpcReq req = new UniCloudUpdateVpcReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setVpcId("vpc-8ff646221sgpb");
+        req.setVpcId("vpc-5xv4tb4pxtgpb");
         req.setName("xinput-test");
 
         UniCloudUpdateVpcResp resp = UniCloudFactory.Vpc.updateVpc(req);
@@ -89,7 +91,7 @@ public class UniCloudVpcApiCase {
     public void deleteVpc() throws Exception {
         UniCloudDeleteVpcReq req = new UniCloudDeleteVpcReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("vpc-bpmz34ie4pgpb");
+        req.setInstanceId("vpc-5xv4tb4pxtgpb");
 
         UniCloudDeleteVpcResp resp = UniCloudFactory.Vpc.delete(req);
         System.out.println("---删除vpn网络---\n\n\n");
@@ -103,9 +105,9 @@ public class UniCloudVpcApiCase {
     public void createSubnet() throws Exception {
         UniCloudCreateSubnetReq req = new UniCloudCreateSubnetReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setVpcId("vpc-8ff646221sgpb");
+        req.setVpcId("vpc-5xv4tb4pxtgpb");
         req.setName("xinput-2");
-        req.setCidr("192.172.4.0/24");
+        req.setCidr("192.172.3.0/24");
 
         UniCloudCreateSubnetResp resp = UniCloudFactory.Vpc.createSubnet(req);
         System.out.println("---子网列表---\n\n\n");
@@ -119,7 +121,7 @@ public class UniCloudVpcApiCase {
     public void describeSubnet() throws Exception {
         UniCloudDescribeSubnetReq req = new UniCloudDescribeSubnetReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setVpcId("vpc-8ff646221sgpb");
+        req.setVpcId("vpc-5xv4tb4pxtgpb");
 
         UniCloudDescribeSubnetResp resp = UniCloudFactory.Vpc.describeSubnet(req);
         System.out.println("---子网列表---\n\n\n");
@@ -133,8 +135,8 @@ public class UniCloudVpcApiCase {
     public void deleteSubnet() throws Exception {
         UniCloudDeleteSubnetReq req = new UniCloudDeleteSubnetReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setVpcId("vpc-k28fflzyusgpb");
-        req.setSubnetId("08976cc7f8384bdda17a46b58014433f");
+        req.setVpcId("vpc-5xv4tb4pxtgpb");
+        req.setSubnetId("3be5444e9b4642109e54b763b8cae69e");
 
         UniCloudDeleteSubnetResp resp = UniCloudFactory.Vpc.deleteSubnet(req);
         System.out.println("---删除指定子网---\n\n\n");

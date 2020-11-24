@@ -3,9 +3,12 @@ package com.xinput.unicloud.model.reqeust.vpc;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
+import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 创建一个专有网络 参数
@@ -99,5 +102,19 @@ public class UniCloudCreateVpcReq extends UniRequest {
     public void checkConstraints() throws ParamException {
         this.setAction(UniCloudConsts.Action.CREATE_VPC.getAction());
         this.checkField();
+    }
+
+    @Override
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = new HashMap();
+        params.put("Action", this.getAction());
+        params.put("RegionId", this.getRegionId());
+        this.addCommonParams(params);
+        return params;
+    }
+
+    @Override
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.post(url, this);
     }
 }
