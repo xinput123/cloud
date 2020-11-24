@@ -67,11 +67,16 @@ public class UniCloudFactory {
 
     private static Context context;
 
-    public static void init(String ak, String sk) throws ParamException {
-        if (StringUtils.isAnyEmpty(ak, sk)) {
-            throw new ParamException("ak,sk不能为空");
+    public static void init(String accessKeyId, String secretKey) throws ParamException {
+        if (StringUtils.isEmpty(accessKeyId)) {
+            throw new ParamException("The specified parameter [AccessKeyId] is not valid.");
         }
-        context = new Context(ak, sk);
+
+        if (StringUtils.isAnyEmpty(accessKeyId, secretKey)) {
+            throw new ParamException("The specified parameter [secretKey] is not valid.");
+        }
+
+        context = new Context(accessKeyId, secretKey);
     }
 
     /**

@@ -6,7 +6,6 @@ import com.xinput.unicloud.model.reqeust.UniRequest;
 import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Map;
 
 /**
  * 创建一个专有网络 参数
@@ -36,13 +35,6 @@ public class UniCloudDeleteVpcReq extends UniRequest {
     public void checkConstraints() throws ParamException {
         this.setAction(UniCloudConsts.Action.DELETE_VPC.getAction());
         this.checkField();
-    }
-
-    @Override
-    public Map<String, Object> signatureParams() {
-        Map<String, Object> params = this.toMap();
-        this.addCommonParams(params);
-        return params;
     }
 
     @Override

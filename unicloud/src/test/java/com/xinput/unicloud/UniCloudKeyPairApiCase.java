@@ -3,7 +3,6 @@ package com.xinput.unicloud;
 import com.xinput.cloud.consts.CloudConsts;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.cloud.util.JsonUtils;
-import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudCreateKeyPairReq;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudDeleteKeyPairReq;
 import com.xinput.unicloud.model.reqeust.keypair.UniCloudDescribeKeyPairReq;
@@ -34,7 +33,6 @@ public class UniCloudKeyPairApiCase {
     @Test
     public void createKeyPairs() throws Exception {
         UniCloudCreateKeyPairReq req = new UniCloudCreateKeyPairReq();
-        req.setAction(UniCloudConsts.Action.CREATE_KEY_PAIR.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
         req.setName("xinput3");
         UniCloudCreateKeyPairResp resp = UniCloudFactory.KeyPair.create(req);
@@ -48,7 +46,6 @@ public class UniCloudKeyPairApiCase {
     @Test
     public void deleteKeyPairs() throws Exception {
         UniCloudDeleteKeyPairReq req = new UniCloudDeleteKeyPairReq();
-        req.setAction(UniCloudConsts.Action.DELETE_KEY_PAIR.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
         req.setInstanceId("kp-keaqb2qjabp7");
         UniCloudDeleteKeyPairResp resp = UniCloudFactory.KeyPair.delete(req);
@@ -62,7 +59,6 @@ public class UniCloudKeyPairApiCase {
     @Test
     public void describeKeyPairs() throws Exception {
         UniCloudDescribeKeyPairReq req = new UniCloudDescribeKeyPairReq();
-        req.setAction(UniCloudConsts.Action.DESCRIBE_KEY_PAIR.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
 
         UniCloudDescribeKeyPairResp resp = UniCloudFactory.KeyPair.describe(req);
@@ -76,7 +72,6 @@ public class UniCloudKeyPairApiCase {
     @Test
     public void getVMByKeyPair() throws Exception {
         UniCloudGetVmByKeyPairReq req = new UniCloudGetVmByKeyPairReq();
-        req.setAction(UniCloudConsts.Action.GET_VM_BY_KEY_PAIR.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
         req.setInstanceId("kp-keaqb2qjabp7");
 

@@ -3,10 +3,8 @@ package com.xinput.unicloud.model.reqeust.ecs;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
-import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Map;
 
 /**
  * 修改云主机密码
@@ -55,17 +53,5 @@ public class UniCloudResetEcsPasswordReq extends UniRequest {
     public void checkConstraints() throws ParamException {
         this.setAction(UniCloudConsts.Action.RESET_ECS_PASSWORD.getAction());
         this.checkField();
-    }
-
-    @Override
-    public Map<String, Object> signatureParams() {
-        Map<String, Object> params = this.toMap();
-        this.addCommonParams(params);
-        return params;
-    }
-
-    @Override
-    public String httpExecute(String url) throws Exception {
-        return HttpUtils.get(url);
     }
 }

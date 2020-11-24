@@ -2,6 +2,7 @@ package com.xinput.unicloud.model.reqeust;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xinput.cloud.domain.BaseInfo;
+import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -29,9 +30,11 @@ public abstract class UniRequest extends BaseInfo {
     private String regionId;
 
     /**
-     * 想紫光云发出请求
+     * 请求，这里默认是get方式，所有请求数据在url上，如果是其他方式，请使用子类覆盖
      */
-    public abstract String httpExecute(String url) throws Exception;
+    public String httpExecute(String url) throws Exception {
+        return HttpUtils.get(url);
+    }
 
     public String getAction() {
         return action;

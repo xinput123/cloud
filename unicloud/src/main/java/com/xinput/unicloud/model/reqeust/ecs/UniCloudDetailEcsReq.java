@@ -4,10 +4,8 @@ import com.xinput.cloud.domain.req.DetailEcsReq;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
-import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Map;
 
 /**
  * 查询云主机实例参数
@@ -47,17 +45,5 @@ public class UniCloudDetailEcsReq extends UniRequest {
     public void checkConstraints() throws ParamException {
         this.setAction(UniCloudConsts.Action.DETAIL_ECS.getAction());
         checkField();
-    }
-
-    @Override
-    public Map<String, Object> signatureParams() {
-        Map<String, Object> params = this.toMap();
-        this.addCommonParams(params);
-        return params;
-    }
-
-    @Override
-    public String httpExecute(String url) throws Exception {
-        return HttpUtils.get(url);
     }
 }

@@ -3,7 +3,6 @@ package com.xinput.unicloud;
 import com.xinput.cloud.consts.CloudConsts;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.cloud.util.JsonUtils;
-import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDeleteEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDescribeEcsReq;
 import com.xinput.unicloud.model.reqeust.ecs.UniCloudDetailEcsReq;
@@ -36,9 +35,9 @@ public class UniCloudEcsApiCase {
 
     @Before
     public void init() throws ParamException {
-        String ak = "xxx";
+        String accessKeyId = "xxx";
         String sk = "xxx";
-        UniCloudFactory.init(ak, sk);
+        UniCloudFactory.init(accessKeyId, sk);
     }
 
     /**
@@ -47,7 +46,6 @@ public class UniCloudEcsApiCase {
     @Test
     public void describeEcs() throws Exception {
         UniCloudDescribeEcsReq req = new UniCloudDescribeEcsReq();
-        req.setAction(UniCloudConsts.Action.DESCRIBE_IMAGE.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
 
         UniCloudDesctibeEcsResp resp = UniCloudFactory.Ecs.describe(req);
@@ -61,9 +59,8 @@ public class UniCloudEcsApiCase {
     @Test
     public void detailEcs() throws Exception {
         UniCloudDetailEcsReq req = new UniCloudDetailEcsReq();
-        req.setAction(UniCloudConsts.Action.DESCRIBE_IMAGE.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("ecs-kd9mjhb97flb");
+        req.setInstanceId("ecs-kec2yg1gkmvs");
 
         UniCloudDetailEcsResp resp = UniCloudFactory.Ecs.detail(req);
         System.out.println("---查询云主机详情---\n\n\n");
@@ -118,27 +115,13 @@ public class UniCloudEcsApiCase {
     }
 
     /**
-     * 云主机关机
-     */
-    @Test
-    public void stop() throws Exception {
-        UniCloudStopEcsReq req = new UniCloudStopEcsReq();
-        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("ecs-kd9mjhb97flb");
-
-        UniCloudStopEcsResp resp = UniCloudFactory.Ecs.stop(req);
-        System.out.println("---云主机关机---\n\n\n");
-        System.out.println(JsonUtils.toJsonString(resp, true));
-    }
-
-    /**
      * 云主机重启
      */
     @Test
     public void reboot() throws Exception {
         UniCloudRebootEcsReq req = new UniCloudRebootEcsReq();
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("ecs-keck47xwtk7c");
+        req.setInstanceId("ecs-kec2yg1gkmvs");
 
         UniCloudRebootEcsResp resp = UniCloudFactory.Ecs.reboot(req);
         System.out.println("---云主机关机---\n\n\n");
@@ -177,6 +160,20 @@ public class UniCloudEcsApiCase {
     }
 
     /**
+     * 云主机关机
+     */
+    @Test
+    public void stop() throws Exception {
+        UniCloudStopEcsReq req = new UniCloudStopEcsReq();
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setInstanceId("ecs-kec2yg1gkmvs");
+
+        UniCloudStopEcsResp resp = UniCloudFactory.Ecs.stop(req);
+        System.out.println("---云主机关机---\n\n\n");
+        System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
      * 删除云主机
      */
     @Test
@@ -184,10 +181,31 @@ public class UniCloudEcsApiCase {
         UniCloudDeleteEcsReq req = new UniCloudDeleteEcsReq();
 
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
-        req.setInstanceId("ecs-keck47xwtk7c");
+        req.setInstanceId("ecs-kd9jlj5huacm");
 
         UniCloudDeleteEcsResp resp = UniCloudFactory.Ecs.delete(req);
         System.out.println("---删除云主机---\n\n\n");
         System.out.println(JsonUtils.toJsonString(resp, true));
+    }
+
+    /**
+     * 删除并关机
+     */
+    @Test
+    public void closeAndDelete() throws Exception {
+        String instanceId = "ecs-kec2bq5txth4";
+
+        UniCloudStopEcsReq stopEcsReq = new UniCloudStopEcsReq();
+        stopEcsReq.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        stopEcsReq.setInstanceId(instanceId);
+
+        UniCloudStopEcsResp stopEcsResp = UniCloudFactory.Ecs.stop(stopEcsReq);
+
+        UniCloudDeleteEcsReq req = new UniCloudDeleteEcsReq();
+
+        req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
+        req.setInstanceId(instanceId);
+
+        UniCloudDeleteEcsResp resp = UniCloudFactory.Ecs.delete(req);
     }
 }

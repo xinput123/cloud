@@ -4,11 +4,9 @@ import com.xinput.cloud.domain.req.StopEcsReq;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
-import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Map;
 
 /**
  * 使用StopEcs对云主机关机
@@ -47,19 +45,6 @@ public class UniCloudStopEcsReq extends UniRequest {
     @Override
     public void checkConstraints() throws ParamException {
         this.setAction(UniCloudConsts.Action.STOP_ECS.getAction());
-
         this.checkField();
-    }
-
-    @Override
-    public Map<String, Object> signatureParams() {
-        Map<String, Object> params = this.toMap();
-        this.addCommonParams(params);
-        return params;
-    }
-
-    @Override
-    public String httpExecute(String url) throws Exception {
-        return HttpUtils.get(url);
     }
 }

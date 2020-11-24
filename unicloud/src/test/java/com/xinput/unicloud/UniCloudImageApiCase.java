@@ -3,7 +3,6 @@ package com.xinput.unicloud;
 import com.xinput.cloud.consts.CloudConsts;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.cloud.util.JsonUtils;
-import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.image.UniCloudCreateEcsSysSnapshotReq;
 import com.xinput.unicloud.model.reqeust.image.UniCloudCreateImageReq;
 import com.xinput.unicloud.model.reqeust.image.UniCloudDeleteImageReq;
@@ -34,7 +33,6 @@ public class UniCloudImageApiCase {
     @Test
     public void describeImages() throws Exception {
         UniCloudDescribeImageReq req = new UniCloudDescribeImageReq();
-        req.setAction(UniCloudConsts.Action.DESCRIBE_IMAGE.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
 
         UniCloudDescribeImageResp resp = UniCloudFactory.Image.describe(req);
@@ -49,7 +47,6 @@ public class UniCloudImageApiCase {
     public void createImage() throws Exception {
         String instanceId = "ecs-kd9mjhb97flb";
         UniCloudCreateImageReq req = new UniCloudCreateImageReq();
-        req.setAction(UniCloudConsts.Action.CREATE_IMAGE.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
         req.setInstanceId(instanceId);
         req.setImageName("xinut-image");
@@ -65,7 +62,6 @@ public class UniCloudImageApiCase {
     @Test
     public void deleteImage() throws Exception {
         UniCloudDeleteImageReq req = new UniCloudDeleteImageReq();
-        req.setAction(UniCloudConsts.Action.DELETE_IMAGES.getAction());
         req.setRegionId(CloudConsts.Region.UNICLOUD_HB1_BJ3.getRegionId());
         req.setImageId("img-keat9rdtlpcs");
 

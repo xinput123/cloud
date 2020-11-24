@@ -36,7 +36,11 @@ public abstract class BaseInfo {
     /**
      * 接口签名需要的参数
      */
-    public abstract Map<String, Object> signatureParams();
+    public Map<String, Object> signatureParams() {
+        Map<String, Object> params = this.toMap();
+        this.addCommonParams(params);
+        return params;
+    }
 
     /**
      * 组装公共参数

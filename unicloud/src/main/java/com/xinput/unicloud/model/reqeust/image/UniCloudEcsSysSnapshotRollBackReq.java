@@ -3,10 +3,8 @@ package com.xinput.unicloud.model.reqeust.image;
 import com.xinput.cloud.exception.ParamException;
 import com.xinput.unicloud.consts.UniCloudConsts;
 import com.xinput.unicloud.model.reqeust.UniRequest;
-import com.xinput.unicloud.util.HttpUtils;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Map;
 
 /**
  * 进行系统盘快照回滚 参数
@@ -54,15 +52,4 @@ public class UniCloudEcsSysSnapshotRollBackReq extends UniRequest {
         this.checkField();
     }
 
-    @Override
-    public Map<String, Object> signatureParams() {
-        Map<String, Object> params = this.toMap();
-        this.addCommonParams(params);
-        return params;
-    }
-
-    @Override
-    public String httpExecute(String url) throws Exception {
-        return HttpUtils.get(url);
-    }
 }
